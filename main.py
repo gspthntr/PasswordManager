@@ -66,31 +66,31 @@ def save_password():
     if len(website) == 0 or len(password) == 0 or len(user) == 0:
         messagebox.showinfo(title="Oops", message="Please don't leave any fields empty!")
     else:
-        with open("password_manager.txt", mode="r") as r_file:
-            r_data = r_file.readlines()
-            website_exists = any(line.split(" | ")[0] == website for line in r_data)
-            if not website_exists:
-                try:
-                    with open("password_manager.json", mode="r") as json_file:
-                        # new_website = f"{website} | {user} | {password}"
-                        data = json.load(json_file)
-                        print(data)
-                except FileNotFoundError as error_message:
-                    print(f"That file does not exist{error_message}\nCreating new file")
-                    with open("password_manager.json", mode="w") as json_file:
-                        json.dump(new_data, json_file, indent=4)
-                except JSONDecodeError as error:
-                    print(f"ERROR MESSAGE: {error}")
-                    with open("password_manager.json", mode="w") as json_file:
-                        json.dump(new_data, json_file, indent=4)
-                else:
-                    data.update(new_data)
-                    with open("password_manager.json", mode="r+") as json_file:
-                        json.dump(data, json_file, indent=4)
-                        print("Website has been added")
-                finally:
-                    web_entry.delete(first=0, last="end")
-                    password_entry.delete(first=0, last="end")
+        # with open("password_manager.txt", mode="r") as r_file:
+        #     r_data = r_file.readlines()
+        #     website_exists = any(line.split(" | ")[0] == website for line in r_data)
+        #     if not website_exists:
+        try:
+            with open("password_manager.json", mode="r") as json_file:
+                # new_website = f"{website} | {user} | {password}"
+                data = json.load(json_file)
+                print(data)
+        except FileNotFoundError as error_message:
+            print(f"That file does not exist{error_message}\nCreating new file")
+            with open("password_manager.json", mode="w") as json_file:
+                json.dump(new_data, json_file, indent=4)
+        except JSONDecodeError as error:
+            print(f"ERROR MESSAGE: {error}")
+            with open("password_manager.json", mode="w") as json_file:
+                json.dump(new_data, json_file, indent=4)
+        else:
+            data.update(new_data)
+            with open("password_manager.json", mode="r+") as json_file:
+                json.dump(data, json_file, indent=4)
+                print("Website has been added")
+        finally:
+            web_entry.delete(first=0, last="end")
+            password_entry.delete(first=0, last="end")
 # ---------------------------- UI SETUP ------------------------------- #
 
 
